@@ -7,8 +7,8 @@ services:
       dockerfile: Dockerfile
     container_name: minio_image
     volumes:
-      - data1:/data
-      - certs1:${HOME}/.minio/certs
+      - data/images:/data
+      - app/minio/certs1:${HOME}/.minio/certs
     ports:
       - "9001:9000"
     environment:
@@ -22,19 +22,11 @@ services:
       dockerfile: Dockerfile
     container_name: minio_file
     volumes:
-      - data2:/data
-      - certs2:${HOME}/.minio/certs
+      - data/files:/data
+      - app/minio/certs2:${HOME}/.minio/certs
     ports:
       - "9002:9000"
     environment:
       MINIO_ACCESS_KEY: minio
       MINIO_SECRET_KEY: minio123
     command: server /data
-
-## By default this config uses default local driver,
-## For custom volumes replace with volume driver configuration.
-volumes:
-  data1:
-  data2:
-  certs1:
-  certs2:
