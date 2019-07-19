@@ -34,7 +34,7 @@ services:
 ## By default this config uses default local driver,
 ## For custom volumes replace with volume driver configuration.
 volumes:
-  data/images:
-  data/files:
-  app/minio/images/certs:
-  app/minio/files/certs:
+  /data/images:
+  /data/files:
+  /app/minio/images/certs:
+  /app/minio/files/certs:
