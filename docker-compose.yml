@@ -7,14 +7,14 @@ services:
       dockerfile: Dockerfile
     container_name: minio_image
     volumes:
-      - data/images:/data
+      - data/images:/images
       - app/minio/certs1:${HOME}/.minio/certs
     ports:
       - "9001:9000"
     environment:
       MINIO_ACCESS_KEY: minio
       MINIO_SECRET_KEY: minio123
-    command: server /data
+    command: server /images
 
   minio2:
     build:
@@ -22,11 +22,11 @@ services:
       dockerfile: Dockerfile
     container_name: minio_file
     volumes:
-      - data/files:/data
+      - data/files:/files
       - app/minio/certs2:${HOME}/.minio/certs
     ports:
       - "9002:9000"
     environment:
       MINIO_ACCESS_KEY: minio
       MINIO_SECRET_KEY: minio123
-    command: server /data
+    command: server /files
