@@ -1,33 +1,40 @@
-version: '2'
+version: "2"
 
 services:
- minio1:
-  image: minio/minio:RELEASE.2019-07-17T22-54-12Z
-  container_name: minio_image
-  volumes:
-   - data1:/data
-  ports:
-   - "9001:9000"
-  environment:
-   MINIO_ACCESS_KEY: minio
-   MINIO_SECRET_KEY: minio123
-  command: server /data
+  minio1:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: minio_image
+    volumes:
+      - data/images:/data
+      - app/minio/images/certs:${HOME}/.minio/certs
+    ports:
+      - "9001:9000"
+    environment:
+      MINIO_ACCESS_KEY: minio
+      MINIO_SECRET_KEY: minio123
+    command: server /data
 
- minio2:
-  image: minio/minio:RELEASE.2019-07-17T22-54-12Z
-  container_name: minio_file
-  volumes:
-   - data2:/data
-  ports:
-   - "9002:9000"
-  environment:
-   MINIO_ACCESS_KEY: minio
-   MINIO_SECRET_KEY: minio123
-  command: server /data
+  minio2:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: minio_file
+    volumes:
+      - data/files:/data
+      - app/minio/files/certs:${HOME}/.minio/certs
+    ports:
+      - "9002:9000"
+    environment:
+      MINIO_ACCESS_KEY: minio
+      MINIO_SECRET_KEY: minio123
+    command: server /data
 
 ## By default this config uses default local driver,
 ## For custom volumes replace with volume driver configuration.
 volumes:
-  data1:
-  data2:
-
+  data/images:
+  data/files:
+  app/minio/images/certs:
+  app/minio/files/certs:
