@@ -7,7 +7,7 @@ services:
       dockerfile: Dockerfile
     container_name: minio_image
     volumes:
-      - data/images:/images
+      - images:/images
       - app/minio/certs1:${HOME}/.minio/certs
     ports:
       - "9001:9000"
@@ -22,7 +22,7 @@ services:
       dockerfile: Dockerfile
     container_name: minio_file
     volumes:
-      - data/files:/files
+      - files:/files
       - app/minio/certs2:${HOME}/.minio/certs
     ports:
       - "9002:9000"
