@@ -42,7 +42,7 @@ services:
     
   certbot:
     image: certbot/certbot
-    image: minio_certbot
+    container_name: minio_certbot
     restart: unless-stopped
     volumes:
       - /app/certbot/conf:/etc/letsencrypt
