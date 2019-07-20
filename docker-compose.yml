@@ -1,39 +1,26 @@
-version: "2"
+version: "3"
 
 services:
-  minio_image:
+  minio:
     image: minio/minio
-    container_name: minio_image
+    container_name: minio
+    restart: unless-stopped
     volumes:
-      - /app/minio/images:/images
+      - /app/minio/data:/data
       # - /app/minio/certs1:${HOME}/.minio/certs
     ports:
-      - "9001:9000"
+      - "9000:9000"
     environment:
       MINIO_ACCESS_KEY: minio
       MINIO_SECRET_KEY: minio123
-    command: server /images
-
-  minio_file:
-    image: minio/minio
-    container_name: minio_file
-    volumes:
-      - /app/minio/files:/files
-      # - /app/minio/certs2:${HOME}/.minio/certs
-    ports:
-      - "9002:9000"
-    environment:
-      MINIO_ACCESS_KEY: minio
-      MINIO_SECRET_KEY: minio123
-    command: server /files
+    command: server /data
 
   nginx:
     image: nginx
     container_name: minio_nginx
     restart: unless-stopped
     depends_on: 
-      - minio_image
-      - minio_file
+      - minio
     volumes:
       - ./data/nginx:/etc/nginx/conf.d
       - ./data/certbot/conf:/etc/letsencrypt
