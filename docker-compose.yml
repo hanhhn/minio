@@ -7,8 +7,8 @@ services:
       dockerfile: Dockerfile
     container_name: minio_image
     volumes:
-      - images:/images
-      - app/minio/certs1:${HOME}/.minio/certs
+      - /app/minio/images:/images
+      - /app/minio/certs1:${HOME}/.minio/certs
     ports:
       - "9001:9000"
     environment:
@@ -16,17 +16,17 @@ services:
       MINIO_SECRET_KEY: minio123
     command: server /images
 
-  # minio2:
-  #   build:
-  #     context: .
-  #     dockerfile: Dockerfile
-  #   container_name: minio_file
-  #   volumes:
-  #     - files:/files
-  #     - app/minio/certs2:${HOME}/.minio/certs
-  #   ports:
-  #     - "9002:9000"
-  #   environment:
-  #     MINIO_ACCESS_KEY: minio
-  #     MINIO_SECRET_KEY: minio123
-  #   command: server /files
+  minio2:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: minio_file
+    volumes:
+      - /app/minio/files:/files
+      - /app/minio/certs2:${HOME}/.minio/certs
+    ports:
+      - "9002:9000"
+    environment:
+      MINIO_ACCESS_KEY: minio
+      MINIO_SECRET_KEY: minio123
+    command: server /files
