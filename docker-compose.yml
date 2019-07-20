@@ -43,8 +43,8 @@ services:
     ports:
       - "80:80"
       - "443:443"
-      - "444:444"
-      - "555:555"
+      - "81:81"
+      - "82:82"
     command: '/bin/sh -c ''while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g "daemon off;"'''
     
   certbot:
