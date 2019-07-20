@@ -31,6 +31,9 @@ services:
     image: nginx
     container_name: minio_nginx
     restart: unless-stopped
+    depends_on: 
+      - minio_image
+      - minio_file
     volumes:
       - ./data/nginx:/etc/nginx/conf.d
       - ./data/certbot/conf:/etc/letsencrypt
