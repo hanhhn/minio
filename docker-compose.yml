@@ -28,7 +28,7 @@ services:
     command: server /files
 
   nginx:
-    image: nginx:latest
+    image: nginx
     restart: unless-stopped
     volumes:
       - /app/nginx/conf.d:/etc/nginx/conf.d
