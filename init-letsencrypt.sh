@@ -7,6 +7,7 @@ fi
 
 domains=(eggs.vn www.eggs.vn)
 rsa_key_size=4096
+data_path="./data/certbot"
 email="" # Adding a valid address is strongly recommended
 staging=0 # Set to 1 if you're testing your setup to avoid hitting request limits
 
@@ -28,7 +29,6 @@ fi
 
 echo "### Creating dummy certificate for $domains ..."
 path="/etc/letsencrypt/live/$domains"
-rm -r $path
 mkdir -p "$data_path/conf/live/$domains"
 docker-compose run --rm --entrypoint "\
   openssl req -x509 -nodes -newkey rsa:1024 -days 1\
