@@ -4,8 +4,8 @@ if ! [ -x "$(command -v docker-compose)" ]; then
   echo 'Error: docker-compose is not installed.' >&2
   exit 1
 fi
-# fruittea.vn www.fruittea.vn 
-domains=(file.fruittea.vn wwww.file.fruittea.vn image.fruittea.vn wwww.image.fruittea.vn)
+
+domains=(fruittea.vn www.fruittea.vn)
 rsa_key_size=4096
 data_path="./data/certbot"
 email="hngochanh@outlook.com" # Adding a valid address is strongly recommended
