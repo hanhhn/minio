@@ -32,7 +32,7 @@ services:
     container_name: minio_nginx
     restart: unless-stopped
     volumes:
-      - /app/nginx/:/etc/nginx/
+      - /app/nginx/conf.d/:/etc/nginx/conf.d
       - /app/certbot/conf:/etc/letsencrypt
       - /app/certbot/www:/var/www/certbot
     ports:
