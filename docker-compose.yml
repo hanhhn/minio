@@ -17,7 +17,7 @@ services:
 
   nginx:
     image: nginx
-    container_name: minio_nginx
+    container_name: nginx
     restart: unless-stopped
     depends_on: 
       - minio
@@ -32,7 +32,7 @@ services:
     
   certbot:
     image: certbot/certbot
-    container_name: minio_certbot
+    container_name: certbot
     restart: unless-stopped
     volumes:
       - ./data/certbot/conf:/etc/letsencrypt
