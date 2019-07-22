@@ -5,7 +5,7 @@ if ! [ -x "$(command -v docker-compose)" ]; then
   exit 1
 fi
 
-domains=(fruittea.vn www.fruittea.vn)
+domains=(eggs.vn www.eggs.vn)
 rsa_key_size=4096
 data_path="./data/certbot"
 email="hngochanh@outlook.com" # Adding a valid address is strongly recommended
