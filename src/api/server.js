@@ -23,7 +23,7 @@ app.use(function(req, res, next) {
   next();
 });
 
-let routes = require("./src/routing"); //importing route
+let routes = require("./app/routing"); //importing route
 routes(app);
 
 app.use(function(req, res) {

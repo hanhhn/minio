@@ -1,0 +1,25 @@
+<div class="row">
+  <form action="" role="form">
+    <div class="form-group">
+      <div class="row">
+        <div class="col-md-5">
+          <input
+            type="text"
+            class="form-control"
+            [(ngModel)]="keyword"
+            [ngModelOptions]="{ standalone: true }"
+          />
+        </div>
+        <div class="col-md-7">
+          <button class="btn btn-success" (click)="onClickSearch($event)">
+            Search
+          </button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+
+<div class="row">
+  <app-movie-item *ngFor="let m of movies" [movie]="m"></app-movie-item>
+</div>
