@@ -11,8 +11,8 @@ services:
     ports:
       - "9000:9000"
     environment:
-      MINIO_ACCESS_KEY: minio
-      MINIO_SECRET_KEY: minio123
+      MINIO_ACCESS_KEY: B763E
+      MINIO_SECRET_KEY: m9rUw49wPa
     command: server /data
 
   nginx:
