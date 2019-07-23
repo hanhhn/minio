@@ -1,6 +1,5 @@
 "use strict";
 module.exports = function(app) {
-  console.log(app)
   var upload = require("./controllers/upload.controller");
   app.route("/api/upload/").post(upload.uploadFile);
 

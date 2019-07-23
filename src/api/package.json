@@ -1,18 +1,21 @@
 {
-  "name": "film",
+  "name": "minio",
   "version": "1.0.0",
-  "description": "all fim",
+  "description": "minio storge",
   "main": "index.js",
   "author": "hanhhn",
   "license": "MIT",
   "dependencies": {
     "dotenv": "^6.2.0",
     "express": "^4.16.4",
+    "file-type": "^12.0.1",
     "formidable": "^1.2.1",
+    "fs": "0.0.1-security",
     "minio": "^7.0.10",
     "mongoose": "^5.4.0",
     "nodemon": "^1.18.9",
     "promise": "^8.0.2",
+    "read-chunk": "^3.2.0",
     "request-promise": "^4.2.2"
   },
   "scripts": {
