@@ -1,18 +1,18 @@
 const Promise = require("promise");
 const minio = require("minio");
-const END_POINT = "https://eggs.vn/";
+const END_POINT = "45.32.125.153";
 const PORT = 9000;
 const ACCESS_KEY = "B763E";
 const SECRET_KEY = "m9rUw49wPa";
 
 const REGION = "us-east-1";
 
-module.exports = class bucket {
+module.exports = class BucketUtility {
   static makeBucket(bucketName) {
     const minioClient = new minio.Client({
       endPoint: END_POINT,
       port: PORT,
-      useSSL: true,
+      useSSL: false,
       accessKey: ACCESS_KEY,
       secretKey: SECRET_KEY
     });
@@ -30,7 +30,7 @@ module.exports = class bucket {
     const minioClient = new minio.Client({
       endPoint: END_POINT,
       port: PORT,
-      useSSL: true,
+      useSSL: false,
       accessKey: ACCESS_KEY,
       secretKey: SECRET_KEY
     });

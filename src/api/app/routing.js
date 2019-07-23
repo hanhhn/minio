@@ -4,5 +4,5 @@ module.exports = function(app) {
   app.route("/api/upload/").post(upload.uploadFile);
 
   var download = require("./controllers/download.controller");
-  app.route("/api/download/").get(download.getImage);
+  app.route("/api/download/:bucketName/:fileName").get(download.getFile);
 };
