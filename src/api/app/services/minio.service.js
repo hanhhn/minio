@@ -2,7 +2,7 @@ const object = require("../utils/object.utility");
 const bucket = require("../utils/bucket.utility");
 
 module.exports = class min {
-  upload(fileName, fileStram, meta) {
+  async upload(fileName, fileStram, meta) {
     const bucketName = new Date().toLocaleDateString();
 
     const isExists = false;

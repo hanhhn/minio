@@ -5,18 +5,21 @@ const PORT = 443;
 const ACCESS_KEY = "B763E";
 const SECRET_KEY = "m9rUw49wPa";
 
-const REGION = "us-east-1";
-
 module.exports = class object {
-  minioClient = new minio.Client({
-    endPoint: END_POINT,
-    port: PORT,
-    useSSL: true,
-    accessKey: ACCESS_KEY,
-    secretKey: SECRET_KEY
-  });
+  
+  get MinioClinent() {
+    return new minio.Client({
+      endPoint: END_POINT,
+      port: PORT,
+      useSSL: true,
+      accessKey: ACCESS_KEY,
+      secretKey: SECRET_KEY
+    });
+  }
 
   static putObject(bucketName, objectName, stream) {
+    minioClient = MinioClinent();
+
     return new Promise(function(resolve, reject) {
       minioClient.putObject(bucketName, objectName, stream, function(
         err,
@@ -32,6 +35,7 @@ module.exports = class object {
   }
 
   static getObject(bucketName, objectName) {
+    minioClient = MinioClinent();
     return new Promise(function(resolve, reject) {
       minioClient.getObject(bucketName, objectName, function(err, dataStream) {
         if (err) {
@@ -44,6 +48,7 @@ module.exports = class object {
   }
 
   static fGetObject(bucketName, objectName, path) {
+    minioClient = MinioClinent();
     return new Promise(function(resolve, reject) {
       minioClient.getObject(bucketName, objectName, path, function(
         err,

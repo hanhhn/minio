@@ -8,15 +8,19 @@ const SECRET_KEY = "m9rUw49wPa";
 const REGION = "us-east-1";
 
 module.exports = class bucket {
-  minioClient = new minio.Client({
-    endPoint: END_POINT,
-    port: PORT,
-    useSSL: true,
-    accessKey: ACCESS_KEY,
-    secretKey: SECRET_KEY
-  });
+
+  get MinioClinent() {
+    return new minio.Client({
+      endPoint: END_POINT,
+      port: PORT,
+      useSSL: true,
+      accessKey: ACCESS_KEY,
+      secretKey: SECRET_KEY
+    });
+  }
 
   static makeBucket(bucketName, region = REGION) {
+    minioClient = MinioClinent();
     return new Promise(function(resolve, reject) {
       minioClient.makeBucket(bucketName, region, function(e) {
         if (e) {
@@ -28,6 +32,7 @@ module.exports = class bucket {
   }
 
   static bucketExists(bucketName) {
+    minioClient = MinioClinent();
     return new Promise(function(resolve, reject) {
       minioClient.bucketExists(bucketName, function(err, exists) {
         if (err) {
