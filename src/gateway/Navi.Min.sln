@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.572
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Navi.Min.Api", "src\Navi.Min.Api\Navi.Min.Api.csproj", "{478BED26-356D-4594-A430-88F6AB3724FB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{478BED26-356D-4594-A430-88F6AB3724FB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{478BED26-356D-4594-A430-88F6AB3724FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{478BED26-356D-4594-A430-88F6AB3724FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{478BED26-356D-4594-A430-88F6AB3724FB}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {16F63525-6F3D-4DDA-97A7-C17A2B606999}
+	EndGlobalSection
+EndGlobal
