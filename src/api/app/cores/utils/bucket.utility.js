@@ -1,6 +1,6 @@
 const Promise = require("promise");
 const minio = require("minio");
-const config = require("../utils/configure")
+const config = require("../utils/configure");
 
 module.exports = class BucketUtility {
   static getMinClient() {
@@ -12,13 +12,13 @@ module.exports = class BucketUtility {
       secretKey: config.secretKey
     });
   }
-  
+
   static makeBucket(bucketName) {
     const minioClient = this.getMinClient();
-    return new Promise(function (resolve, reject) {
-      minioClient.makeBucket(bucketName, REGION, function (e) {
-        if (e) {
-          reject(e);
+    return new Promise(function(resolve, reject) {
+      minioClient.makeBucket(bucketName, config.UsEast1, function(err) {
+        if (err) {
+          reject(err);
         }
         resolve();
       });
@@ -27,14 +27,13 @@ module.exports = class BucketUtility {
 
   static bucketExists(bucketName) {
     const minioClient = this.getMinClient();
-    return new Promise(function (resolve, reject) {
-      minioClient.bucketExists(bucketName, function (err, exists) {
+    return new Promise(function(resolve, reject) {
+      minioClient.bucketExists(bucketName, function(err, exists) {
         if (err) {
           reject(err);
         }
-        if (exists) {
-          resolve(exists);
-        }
+
+        resolve(exists);
       });
     });
   }

@@ -1,5 +1,6 @@
 const Promise = require("promise");
 const minio = require("minio");
+const config = require("../utils/configure");
 
 module.exports = class ObjectUtility {
   static getMinClient() {
@@ -22,7 +23,6 @@ module.exports = class ObjectUtility {
         if (err) {
           reject(err);
         }
-
         resolve(etag);
       });
     });
@@ -52,6 +52,18 @@ module.exports = class ObjectUtility {
         }
 
         resolve(dataStream);
+      });
+    });
+  }
+
+  static removeObject(bucketName, objectName) {
+    const minioClient = this.getMinClient();
+    return new Promise(function (resolve, reject) {
+      minioClient.removeObject(bucketName, objectName, function (err) {
+        if (err) {
+          reject(err);
+        }
+        resolve();
       });
     });
   }

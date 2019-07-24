@@ -1,8 +1,11 @@
 "use strict";
 module.exports = function(app) {
-  var upload = require("./controllers/upload.controller");
-  app.route("/api/upload/").post(upload.uploadFile);
+  var file = require("./controllers/file.controller");
+  app.route("/api/files/get/:bucketName/:fileName/").get(file.get);
+  app.route("/api/files/upload/").post(file.upload);
+  app.route("/api/files/uploads/").post(file.uploads);
+  app.route("/api/files/delete/:bucketName/:fileName/").post(file.delete);
 
-  var download = require("./controllers/download.controller");
-  app.route("/api/download/:bucketName/:fileName").get(download.getFile);
+  // var download = require("./controllers/download.controller");
+  // app.route("/api/download/:bucketName/:fileName").get(download.getFile);
 };
