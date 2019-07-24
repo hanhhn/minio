@@ -4,26 +4,26 @@ const bucket = require("../utils/bucket.utility");
 
 module.exports = class MinIOService {
   upload(fileName, fileStram) {
-    return new Promise(async function(resolve, reject) {
+    return new Promise(async function (resolve, reject) {
       const bucketName = new Date().toLocaleDateString();
 
       let isExists = false;
       await bucket
         .bucketExists(bucketName)
-        .then(function(exists) {
+        .then(function (exists) {
           isExists = exists;
         })
-        .catch(function(err) {
+        .catch(function (err) {
           reject(err);
         });
 
       if (!isExists) {
         await bucket
           .makeBucket(bucketName)
-          .then(function() {
+          .then(function () {
             isExists = true;
           })
-          .catch(function(err) {
+          .catch(function (err) {
             reject(err);
           });
       }
@@ -31,14 +31,14 @@ module.exports = class MinIOService {
       if (isExists) {
         object
           .putObject(bucketName, fileName, fileStram)
-          .then(function(etag) {
+          .then(function (etag) {
             const data = {
               bucket: bucketName,
               etag: etag
             };
             resolve(data);
           })
-          .catch(function(err) {
+          .catch(function (err) {
             reject(err);
           });
       }
@@ -46,26 +46,26 @@ module.exports = class MinIOService {
   }
 
   download(bucketName, fileName) {
-    return new Promise(function(resolve, reject) {
+    return new Promise(function (resolve, reject) {
       object
         .getObject(bucketName, fileName)
-        .then(function(dataStream) {
+        .then(function (dataStream) {
           resolve(dataStream);
         })
-        .catch(function(err) {
+        .catch(function (err) {
           reject(err);
         });
     });
   }
 
-  publish(bucketName, fileName) {
-    return new Promise(function(resolve, reject) {
+  public(bucketName, fileName) {
+    return new Promise(function (resolve, reject) {
       object
         .getObject(bucketName, fileName)
-        .then(function(dataStream) {
+        .then(function (dataStream) {
           resolve(dataStream);
         })
-        .catch(function(err) {
+        .catch(function (err) {
           reject(err);
         });
     });
