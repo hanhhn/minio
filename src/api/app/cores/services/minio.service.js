@@ -60,16 +60,7 @@ module.exports = class MinIOService {
   }
 
   public(bucketName, fileName) {
-    return new Promise(function(resolve, reject) {
-      object
-        .getObject(bucketName, fileName)
-        .then(function(dataStream) {
-          resolve(dataStream);
-        })
-        .catch(function(err) {
-          reject(err);
-        });
-    });
+    
   }
 
   delete(bucketName, fileName) {

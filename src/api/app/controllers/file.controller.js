@@ -9,15 +9,19 @@ exports.get = function(req, res) {
   const fileName = req.params.file;
   const fileService = new FileService();
 
-  fileService
-    .get(bucketName, fileName)
-    .then(function(dataStream) {
-      res.setHeader("Content-Type", "application/octet-stream");
-      dataStream.pipe(res);
-    })
-    .catch(function(err) {
-      res.json({ code: 500, message: JSON.stringify(err) });
-    });
+  if (bucketName && fileName) {
+    fileService
+      .get(bucketName, fileName)
+      .then(function(dataStream) {
+        res.setHeader("Content-Type", "application/octet-stream");
+        dataStream.pipe(res);
+      })
+      .catch(function(err) {
+        res.json({ code: 500, message: JSON.stringify(err) });
+      });
+  } else {
+    res.json({ code: 400, message: "Bad request" });
+  }
 };
 
 exports.getMeteData = function(req, res) {
@@ -25,14 +29,18 @@ exports.getMeteData = function(req, res) {
   const fileName = req.params.file;
   const fileService = new FileService();
 
-  fileService
-    .getMetaData(bucketName, fileName)
-    .then(function(stat) {
-      res.json(stat);
-    })
-    .catch(function(err) {
-      res.json({ code: 500, message: JSON.stringify(err) });
-    });
+  if (bucketName && fileName) {
+    fileService
+      .getMetaData(bucketName, fileName)
+      .then(function(stat) {
+        res.json(stat);
+      })
+      .catch(function(err) {
+        res.json({ code: 500, message: JSON.stringify(err) });
+      });
+  } else {
+    res.json({ code: 400, message: "Bad request" });
+  }
 };
 
 exports.upload = function(req, res) {
@@ -87,6 +95,7 @@ exports.uploads = function(req, res) {
       });
   });
 
+  //TODO: res.json not working as well as expected
   form.on("end", function() {
     res.json({ ...result });
   });
