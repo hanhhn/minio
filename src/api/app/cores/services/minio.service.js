@@ -34,6 +34,7 @@ module.exports = class MinIOService {
           .then(function(etag) {
             const data = {
               bucket: bucketName,
+              name: fileName,
               etag: etag
             };
             resolve(data);

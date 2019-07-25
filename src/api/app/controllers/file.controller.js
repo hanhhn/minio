@@ -5,8 +5,8 @@ const readChunk = require("read-chunk");
 const fileType = require("file-type");
 
 exports.get = function(req, res) {
-  const bucketName = req.params.bucketName;
-  const fileName = req.params.fileName;
+  const bucketName = req.params.bucket;
+  const fileName = req.params.file;
   const fileService = new FileService();
 
   fileService
@@ -15,7 +15,7 @@ exports.get = function(req, res) {
       dataStream.pipe(res);
     })
     .catch(function(err) {
-      res.json({ code: 500, message: err });
+      res.json({ code: 500, message: JSON.stringify(err) });
     });
 };
 
@@ -23,9 +23,8 @@ exports.upload = function(req, res) {
   var form = new formidable.IncomingForm();
 
   form.parse(req, function(err, fields, files) {
-    if (!files || files.length > 1) {
+    if (!files || Object.keys(files).length > 1) {
       res.json({ code: 400, message: "Bad request" });
-      return;
     }
   });
 
@@ -36,15 +35,15 @@ exports.upload = function(req, res) {
     fileService
       .upload(fileName, buffer)
       .then(function(data) {
-        res.json({ data: data });
+        res.json(...data);
       })
       .catch(function(err) {
-        res.json({ code: 500, message: err });
+        res.json({ code: 500, message: JSON.stringify(err) });
       });
   });
 
   form.on("error", function(err) {
-    res.json({ code: 500, message: err });
+    res.json({ code: 500, message: JSON.stringify(err) });
   });
 };
 
@@ -68,30 +67,34 @@ exports.uploads = function(req, res) {
         result.push(data);
       })
       .catch(function(err) {
-        res.json({ code: 500, message: err });
+        res.json({ code: 500, message: JSON.stringify(err) });
       });
   });
 
   form.on("end", function() {
-    res.json({ data: result });
+    res.json({ ...result });
   });
 
   form.on("error", function(err) {
-    res.json({ code: 500, message: err });
+    res.json({ code: 500, message: JSON.stringify(err) });
   });
 };
 
 exports.delete = function(req, res) {
-  const bucketName = req.params.bucketName;
-  const fileName = req.params.fileName;
+  const bucketName = req.body.bucket;
+  const fileName = req.body.file;
   const fileService = new FileService();
 
-  fileService
-    .delete(bucketName, fileName)
-    .then(function(data) {
-      res.json({ data: data });
-    })
-    .catch(function(err) {
-      res.json({ code: 500, message: err });
-    });
+  if (bucketName && fileName) {
+    fileService
+      .delete(bucketName, fileName)
+      .then(function(data) {
+        res.json({ message: data });
+      })
+      .catch(function(err) {
+        res.json({ code: 500, message: JSON.stringify(err) });
+      });
+  } else {
+    res.json({ code: 400, message: "Bad request" });
+  }
 };
