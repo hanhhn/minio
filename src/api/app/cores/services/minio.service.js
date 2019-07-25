@@ -100,4 +100,33 @@ module.exports = class MinIOService {
       }
     });
   }
+
+  getMetaData(bucketName, fileName) {
+    return new Promise(async function(resolve, reject) {
+      let isExists = false;
+      await bucket
+        .bucketExists(bucketName)
+        .then(function(exists) {
+          isExists = exists;
+        })
+        .catch(function(err) {
+          reject(err);
+        });
+
+      if (!isExists) {
+        reject({ msg: "Bucket can not be found." });
+      }
+
+      if (isExists) {
+        object
+          .statObject(bucketName, fileName)
+          .then(function(stat) {
+            resolve(stat);
+          })
+          .catch(function(err) {
+            reject(err);
+          });
+      }
+    });
+  }
 };

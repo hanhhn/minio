@@ -2,6 +2,20 @@ const Promise = require("promise");
 const MinService = require("../services/minio.service");
 
 module.exports = class FileService {
+  get(bucketName, fileName) {
+    const minService = new MinService();
+    return new Promise((resolve, reject) => {
+      minService
+        .download(bucketName, fileName)
+        .then(function(data) {
+          resolve(data);
+        })
+        .catch(function(err) {
+          reject(err);
+        });
+    });
+  }
+
   upload(fileName, buffer) {
     const minService = new MinService();
     return new Promise((resolve, reject) => {
@@ -40,6 +54,20 @@ module.exports = class FileService {
         .delete(bucketName, fileName)
         .then(function(data) {
           resolve(data);
+        })
+        .catch(function(err) {
+          reject(err);
+        });
+    });
+  }
+
+  getMetaData(bucketName, fileName) {
+    const minService = new MinService();
+    return new Promise((resolve, reject) => {
+      minService
+        .getMetaData(bucketName, fileName)
+        .then(function(stat) {
+          resolve(stat);
         })
         .catch(function(err) {
           reject(err);

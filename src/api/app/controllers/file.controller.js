@@ -10,9 +10,25 @@ exports.get = function(req, res) {
   const fileService = new FileService();
 
   fileService
-    .downloadFile(bucketName, fileName)
+    .get(bucketName, fileName)
     .then(function(dataStream) {
+      res.setHeader("Content-Type", "application/octet-stream");
       dataStream.pipe(res);
+    })
+    .catch(function(err) {
+      res.json({ code: 500, message: JSON.stringify(err) });
+    });
+};
+
+exports.getMeteData = function(req, res) {
+  const bucketName = req.params.bucket;
+  const fileName = req.params.file;
+  const fileService = new FileService();
+
+  fileService
+    .getMetaData(bucketName, fileName)
+    .then(function(stat) {
+      res.json(stat);
     })
     .catch(function(err) {
       res.json({ code: 500, message: JSON.stringify(err) });

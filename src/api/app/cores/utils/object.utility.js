@@ -15,8 +15,8 @@ module.exports = class ObjectUtility {
 
   static putObject(bucketName, objectName, stream) {
     const minioClient = this.getMinClient();
-    return new Promise(function (resolve, reject) {
-      minioClient.putObject(bucketName, objectName, stream, function (
+    return new Promise(function(resolve, reject) {
+      minioClient.putObject(bucketName, objectName, stream, function(
         err,
         etag
       ) {
@@ -30,8 +30,8 @@ module.exports = class ObjectUtility {
 
   static getObject(bucketName, objectName) {
     const minioClient = this.getMinClient();
-    return new Promise(function (resolve, reject) {
-      minioClient.getObject(bucketName, objectName, function (err, dataStream) {
+    return new Promise(function(resolve, reject) {
+      minioClient.getObject(bucketName, objectName, function(err, dataStream) {
         if (err) {
           reject(err);
         }
@@ -42,8 +42,8 @@ module.exports = class ObjectUtility {
 
   static fGetObject(bucketName, objectName, path) {
     const minioClient = this.getMinClient();
-    return new Promise(function (resolve, reject) {
-      minioClient.getObject(bucketName, objectName, path, function (
+    return new Promise(function(resolve, reject) {
+      minioClient.getObject(bucketName, objectName, path, function(
         err,
         dataStream
       ) {
@@ -58,12 +58,24 @@ module.exports = class ObjectUtility {
 
   static removeObject(bucketName, objectName) {
     const minioClient = this.getMinClient();
-    return new Promise(function (resolve, reject) {
-      minioClient.removeObject(bucketName, objectName, function (err) {
+    return new Promise(function(resolve, reject) {
+      minioClient.removeObject(bucketName, objectName, function(err) {
         if (err) {
           reject(err);
         }
         resolve();
+      });
+    });
+  }
+
+  static statObject(bucketName, objectName) {
+    const minioClient = this.getMinClient();
+    return new Promise(function(resolve, reject) {
+      minioClient.statObject(bucketName, objectName, function(err, stat) {
+        if (err) {
+          reject(err);
+        }
+        resolve(stat);
       });
     });
   }
