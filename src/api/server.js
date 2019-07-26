@@ -27,7 +27,7 @@ let routes = require("./app/routing"); //importing route
 routes(app);
 
 app.use(function(req, res) {
-  res.status(404).send({ url: req.originalUrl + " not found" });
+  res.status(404).send({ code: 400, message: req.originalUrl + " not found" });
 });
 
 app.listen(port);

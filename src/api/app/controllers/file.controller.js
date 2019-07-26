@@ -13,11 +13,11 @@ exports.get = function(req, res) {
     fileService
       .get(bucketName, fileName)
       .then(function(dataStream) {
-        res.setHeader("Content-Type", "application/octet-stream");
+        // res.setHeader("Content-Type", "application/octet-stream");
         dataStream.pipe(res);
       })
       .catch(function(err) {
-        res.json({ code: 500, message: JSON.stringify(err) });
+        res.json(err);
       });
   } else {
     res.json({ code: 400, message: "Bad request" });
@@ -36,7 +36,7 @@ exports.getMeteData = function(req, res) {
         res.json(stat);
       })
       .catch(function(err) {
-        res.json({ code: 500, message: JSON.stringify(err) });
+        res.json(err);
       });
   } else {
     res.json({ code: 400, message: "Bad request" });
@@ -47,7 +47,7 @@ exports.upload = function(req, res) {
   var form = new formidable.IncomingForm();
 
   form.parse(req, function(err, fields, files) {
-    if (!files || Object.keys(files).length > 1) {
+    if (!files || Object.keys(files).length !== 1) {
       res.json({ code: 400, message: "Bad request" });
     }
   });
@@ -59,10 +59,10 @@ exports.upload = function(req, res) {
     fileService
       .upload(fileName, buffer)
       .then(function(data) {
-        res.json(...data);
+        res.json(data);
       })
       .catch(function(err) {
-        res.json({ code: 500, message: JSON.stringify(err) });
+        res.json(err);
       });
   });
 
@@ -97,7 +97,7 @@ exports.uploads = function(req, res) {
 
   //TODO: res.json not working as well as expected
   form.on("end", function() {
-    res.json({ ...result });
+    res.json(result);
   });
 
   form.on("error", function(err) {
@@ -114,7 +114,7 @@ exports.delete = function(req, res) {
     fileService
       .delete(bucketName, fileName)
       .then(function(data) {
-        res.json({ message: data });
+        res.json(data);
       })
       .catch(function(err) {
         res.json({ code: 500, message: JSON.stringify(err) });

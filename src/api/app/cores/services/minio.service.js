@@ -59,65 +59,34 @@ module.exports = class MinIOService {
     });
   }
 
-  public(bucketName, fileName) {
-    
-  }
+  public(bucketName, fileName) {}
 
   delete(bucketName, fileName) {
     return new Promise(async function(resolve, reject) {
-      let isExists = false;
-      await bucket
-        .bucketExists(bucketName)
-        .then(function(exists) {
-          isExists = exists;
+      object
+        .removeObject(bucketName, fileName)
+        .then(function() {
+          resolve({
+            code: 200,
+            message: `Delete ${fileName} success.`
+          });
         })
         .catch(function(err) {
           reject(err);
         });
-
-      if (!isExists) {
-        reject("Bucket can not be found.");
-      }
-
-      if (isExists) {
-        object
-          .removeObject(bucketName, fileName)
-          .then(function() {
-            resolve(`Delete ${fileName} success.`);
-          })
-          .catch(function(err) {
-            reject(err);
-          });
-      }
     });
   }
 
   getMetaData(bucketName, fileName) {
     return new Promise(async function(resolve, reject) {
-      let isExists = false;
-      await bucket
-        .bucketExists(bucketName)
-        .then(function(exists) {
-          isExists = exists;
+      object
+        .statObject(bucketName, fileName)
+        .then(function(stat) {
+          resolve(stat);
         })
         .catch(function(err) {
           reject(err);
         });
-
-      if (!isExists) {
-        reject({ msg: "Bucket can not be found." });
-      }
-
-      if (isExists) {
-        object
-          .statObject(bucketName, fileName)
-          .then(function(stat) {
-            resolve(stat);
-          })
-          .catch(function(err) {
-            reject(err);
-          });
-      }
     });
   }
 };
