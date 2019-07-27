@@ -7,12 +7,17 @@ services:
     restart: unless-stopped
     volumes:
       - /app/minio/data:/data
+      - /app/minio/cache:/cache
       # - /app/minio/certs1:${HOME}/.minio/certs
     ports:
       - "9000:9000"
     environment:
       MINIO_ACCESS_KEY: B763E
       MINIO_SECRET_KEY: m9rUw49wPa
+      MINIO_CACHE_DRIVES: "/cache"
+      MINIO_CACHE_EXPIRY: 90
+      MINIO_CACHE_EXCLUDE: "*.doc;*docx;*.pdf;*.rar;*.zip;*.mp3;*.mp4"
+      MINIO_CACHE_MAXUSE: 60
     command: server /data
 
   nginx:
