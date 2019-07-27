@@ -17,7 +17,7 @@ exports.get = function(req, res) {
         dataStream.pipe(res);
       })
       .catch(function(err) {
-        res.json(err);
+        res.json(JSON.stringify(err));
       });
   } else {
     res.json({ code: 400, message: "Bad request" });
@@ -36,7 +36,7 @@ exports.getMeteData = function(req, res) {
         res.json(stat);
       })
       .catch(function(err) {
-        res.json(err);
+        res.json(JSON.stringify(err));
       });
   } else {
     res.json({ code: 400, message: "Bad request" });
@@ -62,7 +62,7 @@ exports.upload = function(req, res) {
         res.json(data);
       })
       .catch(function(err) {
-        res.json(err);
+        res.json(JSON.stringify(err));
       });
   });
 
@@ -91,7 +91,7 @@ exports.uploads = function(req, res) {
         result.push(data);
       })
       .catch(function(err) {
-        res.json({ code: 500, message: JSON.stringify(err) });
+        res.json(JSON.stringify(err));
       });
   });
 
@@ -117,7 +117,7 @@ exports.delete = function(req, res) {
         res.json(data);
       })
       .catch(function(err) {
-        res.json({ code: 500, message: JSON.stringify(err) });
+        res.json(JSON.stringify(err));
       });
   } else {
     res.json({ code: 400, message: "Bad request" });

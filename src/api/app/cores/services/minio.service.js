@@ -5,8 +5,9 @@ const bucket = require("../utils/bucket.utility");
 module.exports = class MinIOService {
   upload(fileName, fileStream) {
     return new Promise(async function(resolve, reject) {
-      const bucketName = new Date().toLocaleDateString();
-
+      
+      const bucketName = bucket.genBucketName();
+      
       let isExists = false;
       await bucket
         .bucketExists(bucketName)
