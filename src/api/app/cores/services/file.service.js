@@ -4,11 +4,21 @@ const MinService = require("../services/minio.service");
 module.exports = class FileService {
   get(bucketName, fileName) {
     const minService = new MinService();
-    return new Promise((resolve, reject) => {
+    return new Promise(async (resolve, reject) => {
+      let stat = {};
+      await minService
+        .getMetaData(bucketName, fileName)
+        .then(function(data) {
+          stat = data;
+        })
+        .catch(function(err) {
+          reject(err);
+        });
+
       minService
         .download(bucketName, fileName)
-        .then(function(data) {
-          resolve(data);
+        .then(function(stream) {
+          resolve({stream, stat});
         })
         .catch(function(err) {
           reject(err);

@@ -1,0 +1,26 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <div>@ViewBag.Result</div>
+</div>
+
+<hr />
+
+<div class="text-center">
+    <form action="/Home/Upload" method="post" enctype="multipart/form-data">
+        <input name="file" type="file" />
+        <button type="submit">Upload</button>
+    </form>
+</div>
+
+<hr />
+
+<div class="text-center">
+    <form action="/Home/Get" method="get">
+        <input id="bucket" name="bucket" type="text" placeholder="bucket name" />
+        <input id="file" name="file" type="text" placeholder="file name" />
+        <button type="submit">Get File</button>
+    </form>
+</div>

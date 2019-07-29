@@ -12,9 +12,9 @@ exports.get = function(req, res) {
   if (bucketName && fileName) {
     fileService
       .get(bucketName, fileName)
-      .then(function(dataStream) {
-        // res.setHeader("Content-Type", "application/octet-stream");
-        dataStream.pipe(res);
+      .then(function(data) {
+        res.setHeader("Content-Type", data.stat.metaData["content-type"]);
+        data.stream.pipe(res);
       })
       .catch(function(err) {
         res.json(JSON.stringify(err));
